@@ -16,6 +16,8 @@ func main() {
 	fmt.Println("sizeof(T1{})", unsafe.Sizeof(T1{}))
 
 	age1 := T2{3}
+	//var age2 = new(T2)
+	//age2.age = 3
 	age2 := T2{3}
 	// 只有同类型的结构体能比较，比较的是值不是结构体地址
 	fmt.Println("age1 == age2 ? ", age1 == age2)
