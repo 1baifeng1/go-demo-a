@@ -39,6 +39,9 @@ func main() {
 	fmt.Println("GetKDepthNode():", n1.GetKDepthNode(4))
 	fmt.Println("GetAllNode():", n1.GetAllNode())
 	fmt.Println("GetLeafNode():", n1.GetLeafNode())
+	fmt.Println("PreSearchRecrusion():", n1.PreSearchRecrusion())
+	fmt.Print("PreSearchIteration():")
+	n1.PreSearchIteration()
 
 	fmt.Println("=====================")
 }
@@ -78,6 +81,45 @@ func (root *BtNode) BSearch() {
 		queue = queue[1:]
 	}
 	fmt.Println()
+}
+
+// 二叉树前序遍历-递归
+func (root *BtNode) PreSearchRecrusion() (result []int) {
+	if root == nil {
+		return nil
+	}
+
+	fmt.Printf("%d\t", root.data)
+	//result = append(result, root.data)
+	root.left.PreSearchRecrusion()
+	root.right.PreSearchRecrusion()
+
+	return
+}
+
+// 二叉树的前序遍历-迭代
+func (root *BtNode) PreSearchIteration() {
+	if root == nil {
+		return
+	}
+
+	var stack []*BtNode
+	poi := root
+	for poi != nil {
+		fmt.Printf("%d\t", poi.data)
+		if poi.right != nil {
+			stack = append(stack, poi.right)
+		}
+		if poi.left != nil {
+			stack = append(stack, poi.left)
+		}
+		//poi = stack[len(stack) - 1]	// 当没有数据时，stack[-1]会造成访问越界
+		if len(stack) == 0 {
+			break
+		}
+		poi = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+	}
 }
 
 // 求二叉树最大深度
